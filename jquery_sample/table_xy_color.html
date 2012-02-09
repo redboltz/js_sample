@@ -6,20 +6,20 @@
     <script type="text/javascript">
       $(document).ready(function(){
         var $a = $("td");
-        var $row = $("tr").index(this);
-        var $col = $("td").index(this);
         $a.hover(
           function(){
-            $("tbody").find("tr").eq($row).find("td").css("color", "red");
-            $("tr").each(function(){
-              $(this).find("td").eq($col).css("color", "red");
-            })
+            var $col = $(this).parent().find("td").index($(this));
+            $(this).parent().find("td").css("background-color", "red");
+            $(this).parent().parent().find("tr").each(function(){
+              $(this).find("td").eq($col).css("background-color", "red");
+            });
           },
           function(){
-            $("tbody").find("tr").eq($row).find("td").css("color", "black");
-            $("tr").each(function(){
-	          $(this).find("td").eq($col).css("color", "black");
-	        })
+            var $col = $(this).parent().find("td").index($(this));
+            $(this).parent().find("td").css("background-color", "white");
+            $(this).parent().parent().find("tr").each(function(){
+              $(this).find("td").eq($col).css("background-color", "white");
+            });
           }
         );
       });
