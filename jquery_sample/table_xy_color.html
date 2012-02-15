@@ -8,11 +8,19 @@
         var $a = $("td");
         $a.hover(
           function(){
-            var $col = $(this).parent().find("td").index($(this));
-            $(this).parent().find("td").css("background-color", "red");
-            $(this).parent().parent().find("tr").each(function(){
+            var $td = $(this);
+            var $tr = $(this).parent();
+            var $tds = $td.parent().find("td");
+            var $trs = $tr.parent().find("tr");
+            var $col = $tds.index($td);
+            var $row = $trs.index($tr);
+            $td.parent().find("td").css("background-color", "red");
+            $tr.parent().find("tr").each(function(){
               $(this).find("td").eq($col).css("background-color", "red");
             });
+            var $labelRow = $tds.eq(0).text();
+            var $labelCol = $trs.eq(0).find("td").eq($col).text();
+            $(this).attr({title: $labelRow+","+$labelCol});
           },
           function(){
             var $col = $(this).parent().find("td").index($(this));
@@ -29,6 +37,7 @@
 	<table>
 	  <tbody>
 		<tr>
+		  <td></td>
 		  <td>a</td>
 		  <td>b</td>
 		  <td>c</td>
@@ -36,21 +45,31 @@
 		</tr>
 		<tr>
 		  <td>a</td>
-		  <td>b</td>
-		  <td>c</td>
-		  <td>d</td>
+		  <td>-</td>
+		  <td>-</td>
+		  <td>-</td>
+		  <td>o</td>
 		</tr>
 		<tr>
-		  <td>a</td>
 		  <td>b</td>
-		  <td>c</td>
-		  <td>d</td>
+		  <td>-</td>
+		  <td>-</td>
+		  <td>-</td>
+		  <td>o</td>
 		</tr>
 		<tr>
-		  <td>a</td>
-		  <td>b</td>
 		  <td>c</td>
+		  <td>o</td>
+		  <td>-</td>
+		  <td>o</td>
+		  <td>o</td>
+		</tr>
+		<tr>
 		  <td>d</td>
+		  <td>o</td>
+		  <td>o</td>
+		  <td>o</td>
+		  <td>-</td>
 		</tr>
 	  </tbody>
 	</table>
